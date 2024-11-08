@@ -17,6 +17,19 @@ const userServices = {
       // console.log("🚀 ~ createUser: ~ error:", error)
       throw error
     }
+  },
+  getUserByEmail: async(email)=>{
+    try {
+      const result =await pool.query('SELECT * FROM users where email=$1', [email])
+      if(result && result.rows.length > 0){
+        return result.rows[0]
+      }
+      else{
+        throw new Error("User not found!")
+      }
+    } catch (error) {
+        throw error
+    }
   }
 }
     
